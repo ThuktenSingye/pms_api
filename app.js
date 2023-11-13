@@ -15,6 +15,11 @@ app.use('/public/images', express.static('public/images'));
 
 
 //user router
+app.get('/simple', (req, res)=>{
+    res.json({
+        message:"Working succefully"
+    })
+})
 app.use('/users', userRouter);
 app.use('/projects', projectRouter);
 
