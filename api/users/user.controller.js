@@ -119,7 +119,7 @@ module.exports = {
             console.log('No File Upload');
         }else{
             console.log("File Name:",req.file.filename)
-            var imgsrc = "https://pms-api-3n86.onrender.com/public/images/"+ req.file.filename
+            var imgsrc = "https://pms-node-api.onrender.com/public/images/"+ req.file.filename
             const body = {
                 'user_id': user_id,
                 'imgsrc': imgsrc
