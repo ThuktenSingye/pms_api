@@ -25,10 +25,10 @@ app.get("/",(req,res)=>{
         message: "Hello world"
     })
 })
-app.use('/users', userRouter);
-app.use('/projects', projectRouter);
+// app.use('/users', userRouter);
+// app.use('/projects', projectRouter);
 
 
-app.listen(process.env.APP_PORT, ()=>{
+app.listen(3000, ()=>{
     console.log("Connected Succesfully");
 })
