@@ -20,6 +20,11 @@ app.get('/simple', (req, res)=>{
         message:"Working succefully"
     })
 })
+app.get("/",(req,res)=>{
+    res.json({
+        message: "Hello world"
+    })
+})
 app.use('/users', userRouter);
 app.use('/projects', projectRouter);
 

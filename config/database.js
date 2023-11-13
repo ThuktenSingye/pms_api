@@ -5,11 +5,11 @@ const {createPool} = require('mysql');
 
 
 const pool = createPool({
-    port:process.env.DB_PORT,
-    host:process.env.DB_HOST,
-    user:process.env.DB_USER,
-    password:process.env.DB_PASS,
-    database:process.env.MYSQL_DB,
+    port:3306,
+    host:'bzc6c2melygnnhlau8tu-mysql.services.clever-cloud.com',
+    user:'usdfrdeselzcl4qf',
+    password:'EFOFhkKyjBMVb0U1k6X9',
+    database:'bzc6c2melygnnhlau8tu',
     connectionLimit:10
 });
 
