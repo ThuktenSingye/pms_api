@@ -35,6 +35,6 @@ app.use('/users', userRouter);
 app.use('/projects', projectRouter);
 
 
-app.listen(3000, ()=>{
+app.listen(3001, ()=>{
     console.log("Connected Succesfully");
 })

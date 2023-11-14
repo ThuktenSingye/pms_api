@@ -154,6 +154,42 @@ module.exports = {
             }
         );
     },
+    fetchProjectByRouteId: (id, callback) => {
+        
+        const recentProject = `
+            SELECT 
+                Project.*,
+                FundingAgency.*,
+                Department.DName,
+                CONCAT(FocalPerson.FName, ' ', FocalPerson.LName) AS FullName,
+                CONCAT(User.FName,' ',User.LName) as ResearcherName
+            FROM 
+                Project
+            JOIN 
+                UserProject ON Project.P_Id = UserProject.P_Id
+            JOIN 
+                User  ON UserProject.User_Id = User.User_Id
+            JOIN 
+                FundingAgency ON Project.FA_Id = FundingAgency.FA_Id 
+            JOIN 
+                FocalPerson ON FundingAgency.FP_Id = FocalPerson.FPerson_Id
+            JOIN 
+                Department on Project.D_Id = Department.Dept_Id
+            WHERE Project.P_Id = ?
+        `
+        pool.query(
+            recentProject,
+            [id],
+            (error, result, fields) => {
+                if (error) {
+                    callback(error);
+                    return;
+                }
+
+                return callback(null, result);
+            }
+        );
+    },
     
     
     // project visualization

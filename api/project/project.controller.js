@@ -1,4 +1,4 @@
-const { recentProject, collegeProjectByYear , collegeProjectByCategory, projectFund, departmentProject, fetchProjectById } = require('./project.service');
+const { recentProject, collegeProjectByYear , collegeProjectByCategory, projectFund, departmentProject, fetchProjectById,fetchProjectByRouteId } = require('./project.service');
 
 module.exports = {
     displayRecentProject: (req, res) =>{
@@ -12,6 +12,20 @@ module.exports = {
                 data: results
             })
         })
+    },
+    fetchProjectByRouteId: (req, res)=>{
+        console.log("ID", req.params.id);
+        const id = req.params.id;
+        fetchProjectByRouteId(id, (err, results)=>{
+            if(err){
+                console.log(err);
+                return;
+            }
+            return res.status(200).json({
+                data: results
+            })
+        })
+        
     },
     fetchProjectById: (req, res) =>{
         const body = req.body;
