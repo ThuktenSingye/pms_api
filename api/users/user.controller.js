@@ -1,4 +1,5 @@
-const { permission , role, create, getUsers,getUserByEmail, imageUpload, editProfile} = require('./user.service');
+
+const { permission , role, create, getUsers,getUserByEmail, imageUpload, editProfile, deleteUser, getUserById, updateUser} = require('./user.service');
 const {genSaltSync, hashSync, compareSync} = require('bcrypt') 
 
 module.exports = {
@@ -57,8 +58,52 @@ module.exports = {
 
         })
     },
+    deleteUser: (req, res)=>{
+        const id = req.params.id
+        // console.log(body)
+        deleteUser(id, (err, result)=>{
+            if(err){
+                console.log(err);
+                return;
+            }
+            return res.status(200).json({
+                message: "deleted succesful"
+            })
+        })
+        
+    },
+    updateUser: (req, res) =>{
+        const body = req.body;
+        const id = req.params.id;
+        const salt = genSaltSync(10);
+        body.password = hashSync(body.password, salt);
+    
+        updateUser(body, id, (err, resulst)=>{
+            if(err){
+                console.log(err);
+                return;
+            }
+            return res.status(200).json({
+                message: "Updated Succesfully"
+            })
+        })
+    },
     getUsers: (req, res)=>{
         getUsers((err, result)=>{
+            if(err){
+                console.log(err);
+                return;
+            }
+            return res.json({
+                success:1,
+                data: result
+            });
+        })
+    },
+    getUserById: (req, res)=>{
+        const id = req.params.id
+        console.log(id);
+        getUserById(id, (err, result)=>{
             if(err){
                 console.log(err);
                 return;

@@ -38,27 +38,22 @@ module.exports = {
     },
     // creating user
     create :(data, callback) =>{
-        // pool.query(
-        //     `insert into Users(FName,LName,email,password,Role_Id)
-        //     VALUES(?,?,?,?,?)
-        //     `,
-        //     [
-        //         data.first_name,
-        //         data.last_name,
-        //         data.email,
-        //         data.password,
-        //         data.role_id
-        //     ],
-        //     (error, result, fields)=>{
-        //         if(error){
-        //             return callback(error)
-        //         }
-        //         return callback(null, result)
-        //     }
-        // );
+       
+        let role_id = 0;
+        switch(data.role_name){
+            case 'student': role_id = 1;
+                break;
+            case 'researcher': role_id = 2;
+                break;
+            case 'non-researcher': role_id = 3;
+                break;
+            case 'admin': role_id = 4;
+                break;
+        }
+        console.log(role_id)
         pool.query(
-            `insert into User(User_Id,FName,LName,Email,Password,Role_Id)
-            VALUES(?,?,?,?,?,?)
+            `INSERT INTO User(User_Id,FName,LName,Email,Password,Role_Id)
+            VALUES(?,?,?,?,?, ${role_id})
             `,
             [
                 data.user_id,
@@ -66,7 +61,6 @@ module.exports = {
                 data.last_name,
                 data.email,
                 data.password,
-                data.role_id
             ],
             (error, result, fields)=>{
                 if(error){
@@ -76,9 +70,42 @@ module.exports = {
             }
         );
     },
+    updateUser: (data, id,  callback) =>{
+        pool.query(
+            `UPDATE User SET User_Id = ?, FName=?,LName=?, Email=?, Password=?, Role_Id = ? WHERE User_Id=?`,
+            [
+                data.user_id,
+                data.first_name,
+                data.last_name,
+                data.email,
+                data.password,
+                data.role_id,
+                id
+            ],
+            (error, result, fields) =>{
+                if(error){
+                    callback(error);
+                }
+                return callback(null, result[0]);
+            }
+            );
+    },
+
+    deleteUser:(id, callback) =>{
+        pool.query(
+            `DELETE FROM User WHERE User_Id = ?`,
+            [id],
+            (error, results, fields) =>{
+                if(error){
+                    return callback(error);
+                }
+                return callback(null, results[0]);
+            }
+        );
+    },
     getUsers: callback =>{
         pool.query(
-            `select * from Users`,
+            `SELECT * from User`,
             [],
             (error, result, fields) =>{
                 if(error){
@@ -90,7 +117,7 @@ module.exports = {
     },
     getUserById: (id, callback) =>{
         pool.query(
-            `select Users_Id,FName,LName,Email,Password from Users where id = ?`,
+            `select User_Id,FName,LName,Email,Password, Role_Id from User where User_Id = ?`,
             [id],
             (error, results, fields)=>{
                 if(error){

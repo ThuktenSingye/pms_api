@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const cors = require('cors');
 const userRouter = require('./api/users/user.router');
 const projectRouter = require('./api/project/project.router');
 
@@ -13,7 +14,7 @@ app.use(bodyParser.json({ limit: "50mb" }))
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use('/public/images', express.static('public/images'));
 // handling CORS error
-
+app.use(cors());
 //user router
 app.get('/simple', (req, res)=>{
     res.json({
