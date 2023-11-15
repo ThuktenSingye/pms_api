@@ -12,13 +12,6 @@ const pool = createPool({
     database:'bzc6c2melygnnhlau8tu',
     connectionLimit:10
 });
-// const pool = createPool({
-//     port:3306,
-//     host: 'localhost',
-//     user:'root',
-//     password:'',
-//     database: 'pmsDB',
-//     connectionLimit:10
-// });
+
 
 module.exports = pool;
