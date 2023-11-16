@@ -6,7 +6,7 @@ const router = require('express').Router();
 router.get("/recent", displayRecentProject); /// fetchh all project
 router.get("/", fetchAllProject); // fecth recent project
 router.get('/:id',fetchProjectByRouteId); // fetch project based on id
-router.delete('/:id', deleteProject) // delete project based on id
+router.delete('delete/:id', deleteProject) // delete project based on id
 router.post('/fetch', fetchFundingId) // 
 router.post('/',fetchProjectById); // fetch project based on id
 router.post('/add', addProject); // add project
